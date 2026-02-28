@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,8 +17,17 @@ namespace MatchGame
     {
         DispatcherTimer timer = new DispatcherTimer();
 
-        int tenthsOfSecondsElapsed;
+        TextBlock lastTextBlockClicked;
+        TextBlock lastWrongBlockClicked;
+        Stopwatch time;
+
+        bool findingMath;
         int mathesFound;
+        bool gameComplete;
+
+        TimeSpan bestTime = TimeSpan.MaxValue;
+
+        double timeToComplete = 15;
 
         public MainWindow()
         {
@@ -31,81 +41,122 @@ namespace MatchGame
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            tenthsOfSecondsElapsed++;
-            TimeTextBlock.Text = (tenthsOfSecondsElapsed / 10f).ToString("0.0s");
+            TimeTextBlock.Text = (timeToComplete - time.Elapsed.TotalSeconds).ToString("F2") + 's';
 
             if (mathesFound == 8)
             {
-                timer.Stop();
+                Stop();
+
+                if (time.Elapsed < bestTime)
+                {
+                    bestTime = time.Elapsed;
+                }
+
                 TimeTextBlock.Text = TimeTextBlock.Text + " - Play again?";
+                BestTime.Text = bestTime.TotalSeconds.ToString("F2") + " - Best Time";
             }
+
+            if (time.Elapsed.TotalSeconds >= timeToComplete)
+            {
+                Stop();
+
+                TimeTextBlock.Text = "Time gone - Play again?";
+            }
+        }
+
+        private void Stop()
+        {
+            timer.Stop();
+
+            time.Stop();
+
+            gameComplete = true;
         }
 
         private void SetUpGame()
         {
             List<string> animeEmoji = new List<string>()
             {
-                "💵","💵",
-                "🍄","🍄",
-                "🐦‍","🐦‍",
-                "🔥","🔥",
-                "🌑","🌑",
-                "🔆","🔆",
-                "👮","👮",
-                "🦴","🦴",
+                "💵",
+                "🍄",
+                "🐦‍",
+                "🔥",
+                "🌑",
+                "🔆",
+                "👮",
+                "🦴"
             };
+
+            List<string> gameEmoji = animeEmoji.Concat(animeEmoji).ToList();
 
             Random random = new Random();
 
             foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>())
             {
-                if (textBlock.Name == "TimeTextBlock") continue;
+                if (!textBlock.Name.Contains("EmojiText")) continue;
 
-                int index = random.Next(animeEmoji.Count);
-
-                string nextEmoji = animeEmoji[index];
+                int index = random.Next(gameEmoji.Count);
+                string nextEmoji = gameEmoji[index];
 
                 textBlock.Text = nextEmoji;
                 textBlock.Visibility = Visibility.Visible;
+                textBlock.Background = Brushes.White;
 
-                animeEmoji.RemoveAt(index);
+                gameEmoji.RemoveAt(index);
             }
 
+            time = Stopwatch.StartNew();
+
+            gameComplete = false;
+            mathesFound = 0;
 
             timer.Start();
-            tenthsOfSecondsElapsed = 0;
-            mathesFound = 0;
         }
 
-        TextBlock lastTextBlockClicked;
-        bool findingMath = false;
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TextBlock textBlock = (TextBlock)sender;
 
+            if (textBlock == lastTextBlockClicked || gameComplete) return;
+
+            if (lastWrongBlockClicked != null)
+            {
+                lastWrongBlockClicked.Background = Brushes.White;
+            }
+
             if (findingMath == false)
             {
-                textBlock.Visibility = Visibility.Hidden;
+                if (lastTextBlockClicked != null)
+                {
+                    lastTextBlockClicked.Background = Brushes.White;
+                }
+
+                textBlock.Background = Brushes.Green;
                 lastTextBlockClicked = textBlock;
                 findingMath = true;
             }
-            else if (textBlock.Text == lastTextBlockClicked.Text)
+            else if (textBlock.Text == lastTextBlockClicked?.Text)
             {
                 textBlock.Visibility = Visibility.Hidden;
+                lastTextBlockClicked.Visibility = Visibility.Hidden;
+
                 findingMath = false;
                 mathesFound++;
+                lastTextBlockClicked = null;
             }
             else
             {
-                lastTextBlockClicked.Visibility = Visibility.Visible;
+                textBlock.Background = Brushes.Red;
+                lastWrongBlockClicked = textBlock;
+
                 findingMath = false;
             }
         }
 
         private void TimeTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (mathesFound == 8)
+            if (gameComplete)
             {
                 SetUpGame();
             }
