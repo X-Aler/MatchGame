@@ -1,33 +1,41 @@
 ﻿using System.Diagnostics;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace MatchGame
 {
     public partial class MainWindow : Window
     {
-        DispatcherTimer timer = new DispatcherTimer();
+        private DispatcherTimer timer = new DispatcherTimer();
 
-        TextBlock lastTextBlockClicked;
-        TextBlock lastWrongBlockClicked;
-        Stopwatch time;
+        private TextBlock lastTextBlockClicked;
+        private TextBlock lastWrongTextBlockClicked;
+        private Stopwatch time;
 
-        bool findingMath;
-        int mathesFound;
-        bool gameComplete;
+        private bool findingMath;
+        private bool gameComplete;
+        private bool gameStart;
 
-        TimeSpan bestTime = TimeSpan.MaxValue;
+        private static Random Random = new Random();
 
-        double timeToComplete = 15;
+        private TimeSpan bestTime = TimeSpan.MaxValue;
+
+        private List<string> findedMathes = new List<string>();
+
+        private List<string> animeEmoji = new List<string>()
+            {
+                "💵",
+                "🍄",
+                "🐦‍",
+                "🔥",
+                "🌑",
+                "🔆",
+                "👮",
+                "🦴"
+            };
 
         public MainWindow()
         {
@@ -36,14 +44,14 @@ namespace MatchGame
             timer.Interval = TimeSpan.FromSeconds(0.1);
             timer.Tick += Timer_Tick;
 
-            SetUpGame();
+            TimeTextBlock.Text = "Select to start!";
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            TimeTextBlock.Text = (timeToComplete - time.Elapsed.TotalSeconds).ToString("F2") + 's';
+            TimeTextBlock.Text = (time.Elapsed.TotalSeconds).ToString("F2") + 's';
 
-            if (mathesFound == 8)
+            if (findedMathes.Count == animeEmoji.Count)
             {
                 Stop();
 
@@ -52,15 +60,8 @@ namespace MatchGame
                     bestTime = time.Elapsed;
                 }
 
-                TimeTextBlock.Text = TimeTextBlock.Text + " - Play again?";
+                TimeTextBlock.Text += " - Play again?";
                 BestTime.Text = bestTime.TotalSeconds.ToString("F2") + " - Best Time";
-            }
-
-            if (time.Elapsed.TotalSeconds >= timeToComplete)
-            {
-                Stop();
-
-                TimeTextBlock.Text = "Time gone - Play again?";
             }
         }
 
@@ -75,32 +76,19 @@ namespace MatchGame
 
         private void SetUpGame()
         {
-            List<string> animeEmoji = new List<string>()
-            {
-                "💵",
-                "🍄",
-                "🐦‍",
-                "🔥",
-                "🌑",
-                "🔆",
-                "👮",
-                "🦴"
-            };
 
             List<string> gameEmoji = animeEmoji.Concat(animeEmoji).ToList();
-
-            Random random = new Random();
 
             foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>())
             {
                 if (!textBlock.Name.Contains("EmojiText")) continue;
 
-                int index = random.Next(gameEmoji.Count);
+                int index = Random.Next(gameEmoji.Count);
                 string nextEmoji = gameEmoji[index];
 
                 textBlock.Text = nextEmoji;
-                textBlock.Visibility = Visibility.Visible;
-                textBlock.Background = Brushes.White;
+                textBlock.Background = Brushes.Black;
+                textBlock.Foreground = Brushes.Black;
 
                 gameEmoji.RemoveAt(index);
             }
@@ -108,9 +96,13 @@ namespace MatchGame
             time = Stopwatch.StartNew();
 
             gameComplete = false;
-            mathesFound = 0;
+            findedMathes.Clear();
 
             timer.Start();
+
+            mathesText.Text = $"Mathes found: {findedMathes.Count}";
+
+            gameStart = true;
         }
 
 
@@ -118,39 +110,51 @@ namespace MatchGame
         {
             TextBlock textBlock = (TextBlock)sender;
 
+            if (!gameStart)
+            {
+                SetUpGame();
+            }
+
             if (textBlock == lastTextBlockClicked || gameComplete) return;
 
-            if (lastWrongBlockClicked != null)
+            var text = textBlock.Text;
+
+            if (findedMathes.Contains(text)) return;
+
+            if (lastWrongTextBlockClicked != null)
             {
-                lastWrongBlockClicked.Background = Brushes.White;
+                lastWrongTextBlockClicked.Foreground = Brushes.Black;
+                lastWrongTextBlockClicked = null;
             }
 
             if (findingMath == false)
             {
-                if (lastTextBlockClicked != null)
-                {
-                    lastTextBlockClicked.Background = Brushes.White;
-                }
-
-                textBlock.Background = Brushes.Green;
+                textBlock.Foreground = Brushes.White;
                 lastTextBlockClicked = textBlock;
                 findingMath = true;
             }
-            else if (textBlock.Text == lastTextBlockClicked?.Text)
+            else if (text == lastTextBlockClicked.Text)
             {
-                textBlock.Visibility = Visibility.Hidden;
-                lastTextBlockClicked.Visibility = Visibility.Hidden;
+                textBlock.Foreground = Brushes.White;
+
+                findedMathes.Add(text);
+
+                mathesText.Text = $"Mathes found: {findedMathes.Count}";
 
                 findingMath = false;
-                mathesFound++;
+
                 lastTextBlockClicked = null;
             }
             else
             {
-                textBlock.Background = Brushes.Red;
-                lastWrongBlockClicked = textBlock;
+                textBlock.Foreground = Brushes.White;
+
+                lastWrongTextBlockClicked = textBlock;
+
+                lastTextBlockClicked.Foreground = Brushes.Black;
 
                 findingMath = false;
+                lastTextBlockClicked = null;
             }
         }
 

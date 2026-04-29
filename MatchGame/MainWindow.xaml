@@ -20,23 +20,24 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="EmojiText" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText1" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText2" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText3" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText4" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText5" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText6" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText7" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText8" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText9" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText10" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText11" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText12" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText13" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText14" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
-        <TextBlock x:Name="EmojiText15" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="White"/>
+        <TextBlock x:Name="EmojiText" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText1" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText2" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText3" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="0" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText4" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText5" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText6" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText7" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText8" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText9" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText10" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText11" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText12" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText13" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText14" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
+        <TextBlock x:Name="EmojiText15" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown" Background="Black" Foreground="White"/>
         <TextBlock x:Name="TimeTextBlock" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="Elapsed time" VerticalAlignment="Center" FontSize="36" Grid.ColumnSpan="4" MouseDown="TimeTextBlock_MouseDown"/>
         <TextBlock x:Name="BestTime" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="Best time" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="20" Margin="0,60,0,0"/>
+        <TextBlock x:Name="mathesText" HorizontalAlignment="Center" Margin="0,61,0,0" Grid.Row="4" TextWrapping="Wrap" Text="Mathes Found:" VerticalAlignment="Top"/>
     </Grid>
 </Window>
